@@ -1,0 +1,104 @@
+:root,
+body,
+#rot {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+:root {
+  font-size: 62.5%;
+}
+body {
+  font-size: 1.6rem;
+}
+#root {
+  padding: 40px;
+  display: grid;
+  grid:
+    "  .   .   ." 1fr
+    "  .  main ." 20fr
+    "  .   .   ." 1fr
+    / 1fr 4fr 1fr;
+}
+.main {
+  position: relative;
+  grid-area: main;
+}
+.card-wrapper {
+  position: absolute;
+  left: calc(50% - 20rem);
+  top: calc(2rem * var(--index));
+
+  transform: scale(calc(0.95 + 0.01 * var(--index)))
+    translateZ(calc(1rem * var(--index)));
+
+  width: 40rem;
+  height: 25rem;
+
+  transition: all 0.5s ease;
+
+  .main:hover & {
+    top: calc(10rem * var(--index));
+    transform: perspective(100rem) translateY(-5rem) rotateX(-60deg);
+  }
+  .main &:hover {
+    top: calc(10rem + 10rem * var(--index));
+    transform: perspective(100rem) translateY(-5rem);
+  }
+  .main &:hover ~ * {
+    top: calc(21.5rem + 10rem * var(--index));
+  }
+}
+.card,
+.card-shadow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  border-radius: 3rem;
+  transition: all 0.5s ease;
+}
+.card {
+  background: linear-gradient(to right bottom, pink, papayawhip);
+
+  .main:hover .card-wrapper:not(:hover) & {
+    opacity: 0.75;
+  }
+
+  .heading,
+  .subheading,
+  .number {
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, Helvetica,
+      sans-serif;
+    color: #fff;
+  }
+
+  .heading {
+    margin: 8% 9% 1%;
+
+    font-weight: 600;
+    font-size: 3.2rem;
+  }
+
+  .subheading {
+    margin-left: calc(9% + 0.2rem);
+    font-size: 2rem;
+  }
+  .number {
+    margin: 25% calc(9% + 0.2rem) 0;
+    font-family: monospace;
+    font-size: 2.2rem;
+  }
+}
+.card-shadow {
+  .main:not(:hover) .card-wrapper:not(:first-child) & {
+    box-shadow: 0 -10px 10px -10px rgba(225, 67, 0, 0.4);
+  }
+  .main:hover .card-wrapper:not(:hover) & {
+    box-shadow: 0 -7px 0 -3px rgba(255, 200, 210, 0.5),
+      inset 0 -5px 0 4px rgba(255, 235, 245, 0.5), 0 -50px 50px -45px white;
+  }
+}
